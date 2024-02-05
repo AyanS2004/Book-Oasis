@@ -1,2 +1,3 @@
 # Book-Oasis
 Book suggestion site
+your personalized literary companion using gpt2 api! Discover your next great read with our intuitive book recommendation platform. Simply provide prompts such as your favorite genres, preferred themes, or even specific moods you're in, and let ChatGPT work its magic. Whether you're into thrilling mysteries, heartwarming romances, or mind-bending sci-fi, BookWise tailors recommendations just for you. Dive into a world of endless possibilities and embark on literary adventures curated to match your unique tastes. Start your reading journey today with BookWise and unlock a universe of captivating stories that speak to your soul. Happy reading!
