@@ -55,7 +55,6 @@
             <h1>Add Books</h1>
             <p>Expand our library by adding your favorite books. Fill in the details below:</p>
 
-            <!-- Add your form for adding books here -->
 
         </div>
     </div>
@@ -123,7 +122,7 @@
         function generateRandomBook() {
             var randomBookOutput = document.getElementById("randomBookOutput");
 
-            // Hardcoded random book for illustration purposes
+           
             var randomBook = getRandomBook();
 
             randomBookOutput.innerHTML = "<h3>Your Random Book:</h3>";
@@ -131,9 +130,7 @@
         }
 
         function getRandomBook() {
-            // Add your logic to fetch a random book recommendation
-            // This can be done by calling an API or querying a database
-            // For simplicity, using hardcoded recommendation here
+            
             return "The Great Gatsby by F. Scott Fitzgerald";
         }
     </script>
