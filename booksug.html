@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Oasis - Discover Your Next Adventure</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: stretch;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #sidebar-left, #sidebar-right {
+            width: 0;
+            height: 100%;
+            overflow-x: hidden;
+            transition: 0.5s;
+            position: fixed;
+            z-index: 1;
+        }
+
+        #sidebar-left {
+            background: linear-gradient(180deg, #74ebd5, #ACB6E5);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+        }
+
+        #sidebar-left h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        #sidebar-left a {
+            text-decoration: none;
+            color: #2c3e50;
+            padding: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: block;
+        }
+
+        #sidebar-left a:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        #sidebar-right {
+            background: linear-gradient(180deg, #74ebd5, #ACB6E5);
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+        }
+
+        #sidebar-right a {
+            text-decoration: none;
+            color: #2c3e50;
+            padding: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: block;
+        }
+
+        #sidebar-right a:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 40px;
+            background: linear-gradient(180deg, #74ebd5, #ACB6E5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #34495e;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 15px;
+            color: #34495e;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+            border: 1px solid #95a5a6;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 15px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #output {
+            margin-top: 30px;
+            color: #34495e;
+            text-align: left;
+        }
+
+        .book-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .book-list li {
+            background-color: #ecf0f1;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .book-list li:hover {
+            transform: scale(1.03);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animated {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .toggle-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 24px;
+            width: 30px;
+            background: transparent;
+            border: none;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-button div {
+            width: 30px;
+            height: 4px;
+            background-color: #2c3e50;
+            margin: 6px 0;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .toggle-button:hover {
+            background-color: #ecf0f1;
+        }
+
+        .sidebar-open .toggle-button div:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .sidebar-open .toggle-button div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .sidebar-open .toggle-button div:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .profile-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 2;
+            transition: background-color 0.3s ease;
+        }
+
+        .profile-icon img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .profile-sidebar-open .profile-icon {
+            background-color: #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="toggle-button" onclick="toggleSidebar()"><div></div><div></div><div></div></button>
+
+    <div id="sidebar-left">
+        <h2>Book Oasis</h2>
+        <a href="#" onclick="showRecommendationPage()">Recommend a Book</a>
+        <a href="#" onclick="showRandomBookGenerator()">Random Book Generator</a>
+        <a href="#" onclick="showAddBooksPage()">Add Books</a>
+    </div>
+
+    <button class="profile-icon" onclick="toggleProfileSidebar()">
+        <img src="profile-icon.png" alt="Profile Icon">
+    </button>
+
+    <div id="sidebar-right">
+        <a href="#" onclick="openUserProfile()">My Profile</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </div>
+
+    <div class="content" id="content">
+        <div class="container animated" id="recommendationPage">
+            <h1>Book Oasis</h1>
+            <p>Embark on a literary journey and discover your next favorite book!</p>
+
+            <label for="bookDescription">Describe the book you want to read:</label>
+            <input type="text" id="bookDescription" placeholder="E.g., Mystical Fantasy, Cyberpunk Thriller, Heartwarming Romance">
+
+            <button onclick="recommendBooks()">Get Recommendations</button>
+
+            <div id="output">
+                <h3>Your Recommendations:</h3>
+                <ul class="book-list" id="bookList"></ul>
+            </div>
+        </div>
+
+        <div class="container" id="randomBookGeneratorPage" style="display: none;">
+            <h1>Random Book Generator</h1>
+            <p>Let fate choose your next adventure! Click the button below to get a random book recommendation.</p>
+
+            <button onclick="generateRandomBook()">Generate Random Book</button>
+
+            <div id="randomBookOutput"></div>
+        </div>
+
+        <div class="container" id="addBooksPage" style="display: none;">
+            <h1>Add Books</h1>
+            <p>Expand our library by adding your favorite books. Fill in the details below:</p>
+
+            <!-- Add your form for adding books here -->
+
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            var sidebarLeft = document.getElementById("sidebar-left");
+            var content = document.getElementById("content");
+            var toggleButton = document.querySelector(".toggle-button");
+            var profileIcon = document.querySelector(".profile-icon");
+
+            sidebarLeft.classList.toggle("sidebar-open");
+            content.classList.toggle("content-open");
+            toggleButton.classList.toggle("button-open");
+            profileIcon.classList.remove("profile-icon-open");
+        }
+
+        function toggleProfileSidebar() {
+            var profileIcon = document.querySelector(".profile-icon");
+            profileIcon.classList.toggle("profile-icon-open");
+            document.getElementById("sidebar-right").classList.toggle("profile-sidebar-open");
+            document.getElementById("sidebar-left").classList.remove("sidebar-open");
+            document.getElementById("content").classList.remove("content-open");
+            document.querySelector(".toggle-button").classList.remove("button-open");
+        }
+
+        function showRecommendationPage() {
+            document.getElementById("recommendationPage").style.display = "block";
+            document.getElementById("randomBookGeneratorPage").style.display = "none";
+            document.getElementById("addBooksPage").style.display = "none";
+        }
+
+        function showRandomBookGenerator() {
+            document.getElementById("recommendationPage").style.display = "none";
+            document.getElementById("randomBookGeneratorPage").style.display = "block";
+            document.getElementById("addBooksPage").style.display = "none";
+        }
+
+        function showAddBooksPage() {
+            document.getElementById("recommendationPage").style.display = "none";
+            document.getElementById("randomBookGeneratorPage").style.display = "none";
+            document.getElementById("addBooksPage").style.display = "block";
+        }
+
+        function recommendBooks() {
+            var bookDescription = document.getElementById("bookDescription").value;
+            var bookListDiv = document.getElementById("bookList");
+
+            var recommendations = getRecommendations(bookDescription);
+
+            bookListDiv.innerHTML = "";
+            if (recommendations.length > 0) {
+                recommendations.forEach(function (book) {
+                    var listItem = document.createElement("li");
+                    listItem.textContent = book;
+                    bookListDiv.appendChild(listItem);
+                });
+            } else {
+                var noRecommendation = document.createElement("p");
+                noRecommendation.textContent = "No recommendations found for the given description.";
+                bookListDiv.appendChild(noRecommendation);
+            }
+        }
+
+        function generateRandomBook() {
+            var randomBookOutput = document.getElementById("randomBookOutput");
+
+            // Hardcoded random book for illustration purposes
+            var randomBook = getRandomBook();
+
+            randomBookOutput.innerHTML = "<h3>Your Random Book:</h3>";
+            randomBookOutput.innerHTML += "<p>" + randomBook + "</p>";
+        }
+
+        function getRandomBook() {
+            // Add your logic to fetch a random book recommendation
+            // This can be done by calling an API or querying a database
+            // For simplicity, using hardcoded recommendation here
+            return "The Great Gatsby by F. Scott Fitzgerald";
+        }
+    </script>
+
+</body>
+</html>
